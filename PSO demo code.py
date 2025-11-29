@@ -1,13 +1,11 @@
 import numpy as np
-import matplotlib.pyplot as plt  # <--- Thêm thư viện vẽ hình
+import matplotlib.pyplot as plt
 
 
-# 1. Hàm mục tiêu (Sphere)
 def objective_function(x):
     return np.sum(x ** 2)
 
 
-# 2. Tham số
 num_particles = 30
 num_dimensions = 2
 num_iterations = 50
@@ -16,7 +14,6 @@ c1 = 1.5
 c2 = 1.5
 bounds = [-10, 10]
 
-# 3. Khởi tạo
 position = np.random.uniform(bounds[0], bounds[1], (num_particles, num_dimensions))
 velocity = np.random.uniform(-1, 1, (num_particles, num_dimensions))
 pbest_position = position.copy()
@@ -25,10 +22,9 @@ gbest_index = np.argmin(pbest_value)
 gbest_position = pbest_position[gbest_index].copy()
 gbest_value = pbest_value[gbest_index]
 
-# --- DANH SÁCH LƯU LỊCH SỬ HỘI TỤ ---
-convergence_history = []  # <--- Biến này để lưu giá trị gBest qua từng vòng lặp
+convergence_history = []
 
-# 4. Vòng lặp
+
 for i in range(num_iterations):
     r1 = np.random.rand(num_particles, num_dimensions)
     r2 = np.random.rand(num_particles, num_dimensions)
@@ -46,15 +42,14 @@ for i in range(num_iterations):
                 gbest_value = fitness
                 gbest_position = position[k].copy()
 
-    # Lưu lại giá trị tốt nhất hiện tại vào lịch sử
     convergence_history.append(gbest_value)
 
     print(f"Iter {i + 1}: Best Value = {gbest_value:.6f}")
 
-# 5. VẼ BIỂU ĐỒ HỘI TỤ (Trong PyCharm)
+
 plt.plot(convergence_history, color='red', marker='o')
 plt.title('Biểu đồ hội tụ PSO (PSO Convergence)')
 plt.xlabel('Số vòng lặp (Iteration)')
 plt.ylabel('Giá trị tốt nhất (Best Fitness)')
 plt.grid(True)
-plt.show()  # <--- Lệnh này sẽ bật cửa sổ biểu đồ lên
+plt.show()
